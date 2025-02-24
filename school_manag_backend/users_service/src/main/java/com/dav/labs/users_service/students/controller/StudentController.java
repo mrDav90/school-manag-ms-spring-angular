@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/students")
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @Getter
 @Setter

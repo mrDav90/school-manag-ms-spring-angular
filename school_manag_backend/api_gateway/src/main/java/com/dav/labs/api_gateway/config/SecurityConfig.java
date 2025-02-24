@@ -12,8 +12,9 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
@@ -38,8 +39,8 @@ public class SecurityConfig {
         http
                 //.csrf(AbstractHttpConfigurer::disable)
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .cors(Customizer.withDefaults())
-                //.cors(ServerHttpSecurity.CorsSpec::disable)
+                //.cors(Customizer.withDefaults())
+                .cors(ServerHttpSecurity.CorsSpec::disable)
                 .authorizeExchange(
                 //.authorizeHttpRequests(
                         authorize -> authorize
@@ -52,28 +53,31 @@ public class SecurityConfig {
                                 .pathMatchers("/swagger/**").permitAll()
                                 .anyExchange().authenticated()
                         //.hasRole(ADMIN)
-                )
-                //.formLogin(Customizer.withDefaults())
+                );
+                //.formLogin(Customizer.withDefaults(
                 //.oauth2Login(Customizer.withDefaults())
                 //.sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .oauth2ResourceServer((oauth2) -> oauth2
-                        .jwt(jwt->jwt.jwtAuthenticationConverter(jwtAuthConverter))
-                );
+//                .oauth2ResourceServer((oauth2) -> oauth2
+//                        .jwt(jwt->jwt.jwtAuthenticationConverter(jwtAuthConverter))
+//                );
         //.logout(logout -> logout.clearAuthentication(true).invalidateHttpSession(true));
         return http.build();
     }
 
-    @Bean
-    public CorsWebFilter corsWebFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("*"));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        //config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
-        return new CorsWebFilter(source);
-    }
+//    @Bean
+//    public CorsConfigurationSource corsWebFilter() {
+//
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowedOrigins(Arrays.asList("*"));
+//        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//        config.setAllowedHeaders(Arrays.asList("*"));
+//        //config.setAllowCredentials(true);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        if (!CollectionUtils.isEmpty(config.getAllowedOrigins()) || !CollectionUtils.isEmpty(config.getAllowedMethods())) {
+//            source.registerCorsConfiguration("/api/**", config);
+//        }
+//
+//        return source;
+//    }
 }

@@ -37,11 +37,27 @@
             <AppenderRef ref="file" /><!-- config fichier de log -->
         </Root>
 
-        <Logger name="com.dav.labs.users_service.users.controller" level="debug" additivity="false">
+        <Logger name="com.dav.labs.cours_service.courses.controller" level="debug" additivity="false">
             <AppenderRef ref="Console_JSON" />
         </Logger>
 
-        <Logger name="com.dav.labs.users_service.users.services.impl" level="debug" additivity="false">
+        <Logger name="com.dav.labs.cours_service.courses.services.impl" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+
+        <Logger name="com.dav.labs.cours_service.classes.controller" level="debug" additivity="false">
+            <AppenderRef ref="Console_JSON" />
+        </Logger>
+
+        <Logger name="com.dav.labs.cours_service.classes.services.impl" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+
+        <Logger name="com.dav.labs.cours_service.teaching_assignments.controller" level="debug" additivity="false">
+            <AppenderRef ref="Console_JSON" />
+        </Logger>
+
+        <Logger name="com.dav.labs.cours_service.teaching_assignments.services.impl" level="debug" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
 

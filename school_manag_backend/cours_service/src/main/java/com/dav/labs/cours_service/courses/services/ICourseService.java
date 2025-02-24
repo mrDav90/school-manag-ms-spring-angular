@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICourseService {
-    Optional<CourseDtoResponse> saveCourse(CourseDtoRequest studentDtoRequest);
+    Optional<CourseDtoResponse> saveCourse(CourseDtoRequest courseDtoRequest);
     Optional<List<CourseDtoResponse>> getAllCourses();
-    Optional<CourseDtoResponse> getCourseById(Long studentId);
-    Optional<CourseDtoResponse> updateCourse(Long studentId, CourseDtoRequest studentDtoRequest);
-    boolean deleteCourse(Long studentId);
+    Optional<CourseDtoResponse> getCourseById(Long courseId);
+    Optional<CourseDtoResponse> updateCourse(Long courseId, CourseDtoRequest courseDtoRequest);
+    boolean deleteCourse(Long courseId);
 }

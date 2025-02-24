@@ -62,17 +62,17 @@ export class LoginComponent {
             'Connexion réussie',
             'Bienvenue dans votre espace de gestion scolaire.'
           );
-          this.authService._getMe().subscribe({
-            next: (data) => {
-              this.authService.setUserInfos(data);
-            },
-            error: (error) => {
-              console.log(error);
-            },
-            complete: () => {
-              console.log('traitement termine.');
-            },
-          })
+          // this.authService._getMe().subscribe({
+          //   next: (data) => {
+          //     this.authService.setUserInfos(data);
+          //   },
+          //   error: (error) => {
+          //     console.log(error);
+          //   },
+          //   complete: () => {
+          //     console.log('traitement termine.');
+          //   },
+          // })
         },
         error: (error) => {
           console.log(error);

@@ -8,11 +8,6 @@ import com.dav.labs.users_service.students.entities.StudentEntity;
 import com.dav.labs.users_service.students.mapper.StudentMapper;
 import com.dav.labs.users_service.students.repository.StudentRepository;
 import com.dav.labs.users_service.students.services.IStudentService;
-import com.dav.labs.users_service.users.dto.requests.UserDtoRequest;
-import com.dav.labs.users_service.users.dto.responses.UserDtoResponse;
-import com.dav.labs.users_service.users.entities.UserEntity;
-import com.dav.labs.users_service.users.mapper.UserMapper;
-import com.dav.labs.users_service.users.repository.UserRepository;
 import com.dav.labs.users_service.users.services.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -51,7 +46,7 @@ public class StudentServiceImpl implements IStudentService {
     @Override
     public Optional<StudentDtoResponse> getStudentById(Long id){
         return studentRepository.findById(id)
-                .map(user -> Optional.of(studentMapper.toStudentDtoResponse(user)))
+                .map(student -> Optional.of(studentMapper.toStudentDtoResponse(student)))
                 .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("student.notfound", new Object[]{id}, Locale.getDefault())));
     }
     @Override

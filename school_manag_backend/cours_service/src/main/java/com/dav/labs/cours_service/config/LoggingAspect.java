@@ -26,7 +26,12 @@ public class LoggingAspect {
     /**
      * Pointcut that matches all Spring beans in the application's main packages.
      */
-    @Pointcut("within(com.dav.labs..*)" + " || within(com.dav.labs.cours_service.courses.controller..*)")
+    @Pointcut(
+            "within(com.dav.labs..*)" +
+            " || within(com.dav.labs.cours_service.courses.controller..*)"+
+            " || within(com.dav.labs.cours_service.classes.controller..*)"+
+            " || within(com.dav.labs.cours_service.teaching_assignments.controller..*)"
+    )
     public void applicationPackagePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }

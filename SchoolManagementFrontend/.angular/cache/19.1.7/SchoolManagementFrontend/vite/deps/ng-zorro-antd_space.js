@@ -7,14 +7,13 @@ import {
   NzSpaceComponent,
   NzSpaceItemDirective,
   NzSpaceModule
-} from "./chunk-TVAPERHT.js";
-import "./chunk-HGXQZXDR.js";
-import "./chunk-6ICFBPAE.js";
-import "./chunk-PMLDN6SG.js";
-import "./chunk-KAFYJN3K.js";
-import "./chunk-S57O3SZI.js";
-import "./chunk-KHWSNV4R.js";
-import "./chunk-6QNTARNC.js";
+} from "./chunk-WBBSYQ4R.js";
+import "./chunk-PE463VTU.js";
+import "./chunk-X4RGDMTD.js";
+import "./chunk-OBUVG2DR.js";
+import "./chunk-5VEBTDIS.js";
+import "./chunk-V4FOGLRS.js";
+import "./chunk-NZ4JI5J4.js";
 import "./chunk-WDMUDEB6.js";
 export {
   NZ_SPACE_COMPACT_ITEMS,

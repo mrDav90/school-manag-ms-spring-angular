@@ -5,6 +5,7 @@ import { CoursesComponent } from './business/courses/courses.component';
 import { LoginComponent } from './auth/login/login.component';
 import { authGuard } from './auth/guard/auth.guard';
 import { DashboardComponent } from './business/dashboard/dashboard.component';
+import { ClassesComponent } from './business/classes/classes.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,7 @@ export const routes: Routes = [
       { path: 'dashboard', component : DashboardComponent },
       { path: 'students', component : StudentsComponent },
       { path: 'courses', component : CoursesComponent },
+      { path: 'classes', component : ClassesComponent },
     ]
   },
 ];

@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin(value = "http://localhost:4200")
 @RequiredArgsConstructor
 @Getter
 @Setter

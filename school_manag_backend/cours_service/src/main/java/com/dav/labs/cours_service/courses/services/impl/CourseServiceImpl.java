@@ -46,7 +46,7 @@ public class CourseServiceImpl implements ICourseService {
     @Override
     public Optional<CourseDtoResponse> getCourseById(Long id){
         return courseRepository.findById(id)
-                .map(user -> Optional.of(courseMapper.toCourseDtoResponse(user)))
+                .map(course -> Optional.of(courseMapper.toCourseDtoResponse(course)))
                 .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("course.notfound", new Object[]{id}, Locale.getDefault())));
     }
     @Override

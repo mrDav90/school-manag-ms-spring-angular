@@ -13,7 +13,7 @@ public interface CourseMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "description", target = "description")
     CourseEntity toCourseEntity(CourseDtoRequest courseDtoRequest);
-    CourseDtoResponse toCourseDtoResponse(CourseEntity studentEntity);
+    CourseDtoResponse toCourseDtoResponse(CourseEntity courseEntity);
     List<CourseEntity> toCourseEntityList(List<CourseDtoRequest> courseDtoRequestList);
-    List<CourseDtoResponse> toCourseDtoResponseList(List<CourseEntity> studentEntityList);
+    List<CourseDtoResponse> toCourseDtoResponseList(List<CourseEntity> courseEntityList);
 }

@@ -1,10 +1,10 @@
 version: '3.9'
 services:
-  discovery_service:
+  discovery:
     build:
       context: ./discovery_service
       dockerfile: Dockerfile
-    container_name: discovery_service
+    container_name: discovery
     restart: always
     ports:
       - "8761:8761"
@@ -38,6 +38,22 @@ services:
       - "3308:3306"
     volumes:
       - cours_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+
+  program_service_db:
+    image: mysql
+    container_name: program_service_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: program_db
+      MYSQL_USER: david
+      MYSQL_PASSWORD: Passer1234@
+    ports:
+      - "3309:3306"
+    volumes:
+      - program_mysql_data:/var/lib/mysql
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
 
@@ -77,6 +93,8 @@ volumes:
   users_mysql_data:
     driver: local
   cours_mysql_data:
+    driver: local
+  program_mysql_data:
     driver: local
   postgres_data:
     driver: local
