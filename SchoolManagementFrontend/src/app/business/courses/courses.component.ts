@@ -52,6 +52,7 @@ export class CoursesComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+        this.tableLoading = false;
       },
       complete: () => {
         console.log('traitement termine.');

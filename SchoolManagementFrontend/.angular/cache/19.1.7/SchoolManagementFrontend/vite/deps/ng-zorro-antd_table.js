@@ -1,35 +1,36 @@
 import {
   NzResizeObserver
-} from "./chunk-5RC67HZ2.js";
-import {
-  NzI18nService
-} from "./chunk-PV26INJZ.js";
+} from "./chunk-4NMSOO6T.js";
 import {
   NzFormItemFeedbackIconComponent,
   NzFormNoStatusService,
   NzFormStatusService
-} from "./chunk-VQ3UYM2C.js";
+} from "./chunk-TWJCZKH6.js";
+import {
+  NzI18nService
+} from "./chunk-E5KRWJTQ.js";
 import {
   NzDropDownDirective,
   NzDropDownModule,
   NzDropdownMenuComponent
-} from "./chunk-I5VE6BRY.js";
+} from "./chunk-G3GINX2K.js";
 import {
   NzMenuDirective,
   NzMenuItemComponent
-} from "./chunk-ITBPKRCG.js";
+} from "./chunk-BBE2CFCV.js";
 import {
   NzNoAnimationDirective
 } from "./chunk-WP6W6YRU.js";
+import "./chunk-6UVCZ77E.js";
+import {
+  slideMotion
+} from "./chunk-FWJID6FC.js";
 import {
   NzConnectedOverlayDirective,
   NzOverlayModule,
   POSITION_MAP,
   getPlacementName
-} from "./chunk-HQ74VLTP.js";
-import {
-  slideMotion
-} from "./chunk-PZPL5AX3.js";
+} from "./chunk-DPPQYPKT.js";
 import {
   CdkConnectedOverlay,
   CdkFixedSizeVirtualScroll,
@@ -42,7 +43,7 @@ import {
   PortalModule,
   ScrollingModule,
   TemplatePortal
-} from "./chunk-MRL5BHLH.js";
+} from "./chunk-CGLDNICA.js";
 import {
   BACKSPACE,
   DOWN_ARROW,
@@ -52,19 +53,41 @@ import {
   SPACE,
   TAB,
   UP_ARROW
-} from "./chunk-GCLZTN44.js";
-import "./chunk-6UVCZ77E.js";
+} from "./chunk-F3HAA4JG.js";
 import {
   NzButtonComponent,
   NzButtonModule
-} from "./chunk-T47GSX45.js";
+} from "./chunk-VO6WA7YU.js";
 import {
   NZ_SPACE_COMPACT_ITEM_TYPE,
   NZ_SPACE_COMPACT_SIZE,
   NzSpaceCompactItemDirective,
   takeUntilDestroyed,
   toSignal
-} from "./chunk-WBBSYQ4R.js";
+} from "./chunk-ZMCWVHTT.js";
+import {
+  NzIconDirective,
+  NzIconModule
+} from "./chunk-T3UZOHCY.js";
+import "./chunk-2SJ2DHYL.js";
+import {
+  NzConfigService,
+  WithConfig
+} from "./chunk-HPCTX3RK.js";
+import "./chunk-BQ76GOFF.js";
+import {
+  NzTransitionPatchDirective
+} from "./chunk-BCNKTN2Y.js";
+import {
+  NzWaveDirective
+} from "./chunk-Y7HGS6AT.js";
+import "./chunk-PSTX632D.js";
+import "./chunk-QJEG43GL.js";
+import "./chunk-XLE7UIJK.js";
+import {
+  NzOutletModule,
+  NzStringTemplateOutletDirective
+} from "./chunk-PE463VTU.js";
 import {
   NzBreakpointEnum,
   NzBreakpointService,
@@ -73,23 +96,23 @@ import {
   cancelRequestAnimationFrame,
   gridResponsiveMap,
   reqAnimFrame
-} from "./chunk-MP5263AR.js";
-import {
-  NzTransitionPatchDirective
-} from "./chunk-BCNKTN2Y.js";
-import {
-  NzOutletModule,
-  NzStringTemplateOutletDirective
-} from "./chunk-PE463VTU.js";
-import {
-  NzWaveDirective
-} from "./chunk-Y7HGS6AT.js";
-import "./chunk-PSTX632D.js";
-import "./chunk-QJEG43GL.js";
-import "./chunk-XLE7UIJK.js";
+} from "./chunk-ETWQ6G2G.js";
 import {
   Directionality
-} from "./chunk-X4RGDMTD.js";
+} from "./chunk-HHB2J7OS.js";
+import {
+  arraysEqual,
+  fromEventOutsideAngular,
+  getStatusClassNames,
+  isNil,
+  isNotNil,
+  measureScrollbar,
+  toNumber
+} from "./chunk-OWKXHI3D.js";
+import {
+  Platform,
+  _getEventTarget
+} from "./chunk-QQTHJWLI.js";
 import {
   COMPOSITION_BUFFER_MODE,
   CheckboxControlValueAccessor,
@@ -99,29 +122,6 @@ import {
   NgControlStatus,
   NgModel
 } from "./chunk-FTERKJAV.js";
-import {
-  NzIconDirective,
-  NzIconModule
-} from "./chunk-RYAMEU5E.js";
-import "./chunk-BQ76GOFF.js";
-import "./chunk-2SJ2DHYL.js";
-import {
-  NzConfigService,
-  WithConfig
-} from "./chunk-OBUVG2DR.js";
-import {
-  arraysEqual,
-  fromEventOutsideAngular,
-  getStatusClassNames,
-  isNil,
-  isNotNil,
-  measureScrollbar,
-  toNumber
-} from "./chunk-5VEBTDIS.js";
-import {
-  Platform,
-  _getEventTarget
-} from "./chunk-QQTHJWLI.js";
 import "./chunk-QOX7TZEI.js";
 import "./chunk-VETWWS5V.js";
 import {

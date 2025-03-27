@@ -45,10 +45,11 @@ public class TeachingAssignmentServiceImpl implements ITeachingAssignmentService
         List<TeachingAssignmentEntity> teacherAssignmentsEntities = teacherAssignmentRepository.findAll().stream().map(elt -> {
                     var courseName = courseRepository.findById(elt.getCourseId()).get().getName();
                     var classeName = classeRepository.findById(elt.getClasseId()).get().getName();
-                    //var teacherName = teacherRestClient.getTeacherById(elt.getTeacherId()).getFirstName()+" "+teacherRestClient.getTeacherById(elt.getTeacherId()).getLastName();
+                    //System.out.println(teacherRestClient.getTeacherById(elt.getTeacherId()));
+                    var teacherName = teacherRestClient.getTeacherById(elt.getTeacherId()).getFirstName()+" "+teacherRestClient.getTeacherById(elt.getTeacherId()).getLastName();
                     elt.setCourseName(courseName);
                     elt.setClasseName(classeName);
-                    //elt.setTeacherName(teacherName);
+                    elt.setTeacherName(teacherName);
                     return elt;
                 }
 

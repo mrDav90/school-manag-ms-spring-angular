@@ -1,0 +1,18 @@
+meta {
+  name: login
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/realms/school-manag-realm/protocol/openid-connect/token
+  body: formUrlEncoded
+  auth: bearer
+}
+
+body:form-urlencoded {
+  client_id: school-manag-client
+  username: david
+  password: Passer1234@
+  grant_type: password
+}

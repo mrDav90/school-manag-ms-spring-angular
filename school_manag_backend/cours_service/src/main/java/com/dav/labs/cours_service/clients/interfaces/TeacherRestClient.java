@@ -6,7 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient("http://localhost:8081")
+//@FeignClient(name = "users-service")
+@FeignClient(name = "users-service", url = "http://localhost:8081")
 public interface TeacherRestClient {
     @GetMapping("/api/v1/teachers/{id}")
     Teacher getTeacherById(@PathVariable("id") Long id);

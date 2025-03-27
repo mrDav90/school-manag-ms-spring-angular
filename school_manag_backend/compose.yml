@@ -89,6 +89,7 @@ services:
     volumes:
       - ./kc-realm.json:/opt/keycloak/data/import/realm.json
 
+
 volumes:
   users_mysql_data:
     driver: local

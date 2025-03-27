@@ -50,6 +50,7 @@ export class StudentsComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+        this.tableLoading = false;
       },
       complete: () => {
         console.log('traitement termine.');

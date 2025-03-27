@@ -26,10 +26,15 @@ public class LoggingAspect {
     /**
      * Pointcut that matches all Spring beans in the application's main packages.
      */
-    @Pointcut("within(com.dav.labs..*)" + " || within(com.dav.labs.program_service.sectors.controller..*)")
+    @Pointcut(
+            "within(com.dav.labs..*)" +
+            " || within(com.dav.labs.program_service.academic_year.controller.*)" +
+            " || within(com.dav.labs.program_service.sector.controller.*)"
+    )
     public void applicationPackagePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }
+
 
     /**
      * Advice that logs methods throwing exceptions.

@@ -40,26 +40,24 @@ public class SecurityConfig {
                 //.csrf(AbstractHttpConfigurer::disable)
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 //.cors(Customizer.withDefaults())
-                .cors(ServerHttpSecurity.CorsSpec::disable)
+                //.cors(ServerHttpSecurity.CorsSpec::disable)
                 .authorizeExchange(
-                //.authorizeHttpRequests(
                         authorize -> authorize
-//                                .requestMatchers("/api/**").permitAll()
-//                                .requestMatchers("/eureka/**").permitAll()
-//                                .requestMatchers("/swagger/**").permitAll()
-//                                .anyRequest().authenticated()
-                                .pathMatchers("/api/**").permitAll()
+                                .pathMatchers(HttpMethod.OPTIONS).permitAll()
+                                .pathMatchers("/api/**").authenticated()
                                 .pathMatchers("/eureka/**").permitAll()
                                 .pathMatchers("/swagger/**").permitAll()
+                                .pathMatchers("/swagger-ui/**").permitAll()
+                                //.anyExchange().authenticated()
                                 .anyExchange().authenticated()
                         //.hasRole(ADMIN)
-                );
+                )
                 //.formLogin(Customizer.withDefaults(
                 //.oauth2Login(Customizer.withDefaults())
                 //.sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-//                .oauth2ResourceServer((oauth2) -> oauth2
-//                        .jwt(jwt->jwt.jwtAuthenticationConverter(jwtAuthConverter))
-//                );
+                .oauth2ResourceServer((oauth2) -> oauth2
+                        .jwt(jwt->jwt.jwtAuthenticationConverter(jwtAuthConverter))
+                );
         //.logout(logout -> logout.clearAuthentication(true).invalidateHttpSession(true));
         return http.build();
     }

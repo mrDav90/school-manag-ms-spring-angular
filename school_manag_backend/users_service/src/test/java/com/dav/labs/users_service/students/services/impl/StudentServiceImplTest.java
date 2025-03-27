@@ -13,6 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Locale;
@@ -25,7 +29,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class StudentServiceImplTest {
+class StudentServiceImplTest {
     @Mock
     private StudentRepository studentRepository;
     @InjectMocks
@@ -65,6 +69,28 @@ public class StudentServiceImplTest {
         Optional<List<StudentDtoResponse>> students = studentService.getAllStudents();
         assertTrue(students.isPresent());
         assertEquals(1, students.get().size());
+    }
+
+    @Test
+    void getStudents_ShouldReturnPagedStudentDtoResponse() {
+        int pageNumber = 0;
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        StudentEntity studentEntity = new StudentEntity();
+        StudentDtoResponse studentDtoResponse = new StudentDtoResponse();
+        Page<StudentEntity> studentEntitiesPage = new PageImpl<>(List.of(studentEntity), pageable, 1);
+
+        when(studentRepository.findAll(pageable)).thenReturn(studentEntitiesPage);
+        when(studentMapper.toStudentDtoResponse(studentEntity)).thenReturn(studentDtoResponse);
+
+        Page<StudentDtoResponse> result = studentService.getStudents(pageNumber, pageSize);
+
+        assertNotNull(result);
+        assertEquals(1, result.getTotalElements());
+        assertEquals(1, result.getContent().size());
+        verify(studentRepository, times(1)).findAll(pageable);
+        verify(studentMapper, times(1)).toStudentDtoResponse(studentEntity);
+
     }
 
     @Test

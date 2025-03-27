@@ -1,5 +1,7 @@
 package com.dav.labs.users_service.students.services.impl;
 
+import com.dav.labs.users_service.clients.keycloak.CreateKcClientResponse;
+import com.dav.labs.users_service.clients.keycloak.IKcClientService;
 import com.dav.labs.users_service.exception.EntityExistsException;
 import com.dav.labs.users_service.exception.EntityNotFoundException;
 import com.dav.labs.users_service.students.dto.requests.StudentDtoRequest;
@@ -13,6 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,22 +31,37 @@ public class StudentServiceImpl implements IStudentService {
     private final StudentMapper studentMapper;
     private final MessageSource messageSource;
     private final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+    private final IKcClientService kcClientService;
 
     @Override
     public Optional<StudentDtoResponse> saveStudent(StudentDtoRequest studentDtoRequest){
-        if (studentRepository.findByEmailPerso(studentDtoRequest.getEmailPerso()).isPresent()) {
+        if (studentRepository.findByEmailPerso(studentDtoRequest.getEmailPro()).isPresent()) {
             throw new EntityExistsException(messageSource.getMessage("student.exists", new Object[]{studentDtoRequest.getEmailPro()}, Locale.getDefault()));
         }
         StudentEntity student = studentMapper.toStudentEntity(studentDtoRequest);
         logger.info("EmailPro: {}", student);
-        StudentEntity studentEntity = studentRepository.save(student);
-        StudentDtoResponse studentDtoResponse = studentMapper.toStudentDtoResponse(studentEntity);
-        return Optional.of(studentDtoResponse);
+
+        CreateKcClientResponse response = kcClientService.createUser(
+                studentDtoRequest.getEmailPro() , studentDtoRequest.getEmailPro() , "passer"
+        );
+        System.out.println(response);
+        if (response.getCreated()){
+            StudentEntity studentEntity = studentRepository.save(student);
+            StudentDtoResponse studentDtoResponse = studentMapper.toStudentDtoResponse(studentEntity);
+            return Optional.of(studentDtoResponse);
+        }
+        return Optional.empty();
     }
     @Override
     public Optional<List<StudentDtoResponse>> getAllStudents(){
         List<StudentEntity> studentsEntities = studentRepository.findAll();
         return Optional.of(studentMapper.toStudentDtoResponseList(studentsEntities));
+    }
+    @Override
+    public Page<StudentDtoResponse> getStudents(int pageNumber , int pageSize){
+        Pageable pagedRequest = PageRequest.of(pageNumber,pageSize);
+        Page<StudentEntity> studentsEntities = studentRepository.findAll(pagedRequest);
+        return studentsEntities.map(studentMapper::toStudentDtoResponse);
     }
     @Override
     public Optional<StudentDtoResponse> getStudentById(Long id){
@@ -61,9 +81,11 @@ public class StudentServiceImpl implements IStudentService {
     }
     @Override
     public boolean deleteStudent(Long id){
-        if (studentRepository.findById(id).isEmpty()) {
+        var student = studentRepository.findById(id);
+        if (student.isEmpty()) {
             throw new EntityNotFoundException(messageSource.getMessage("student.notfound", new Object[]{id}, Locale.getDefault()));
         }
+        kcClientService.deleteUser(student.get().getEmailPro());
         studentRepository.deleteById(id);
         return true;
     }

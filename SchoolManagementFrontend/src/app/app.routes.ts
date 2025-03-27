@@ -2,10 +2,9 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { StudentsComponent } from './business/students/students.component';
 import { CoursesComponent } from './business/courses/courses.component';
-import { LoginComponent } from './auth/login/login.component';
-import { authGuard } from './auth/guard/auth.guard';
 import { DashboardComponent } from './business/dashboard/dashboard.component';
 import { ClassesComponent } from './business/classes/classes.component';
+import { canActivateAuthRole } from './auth/guard/auth.guard';
 
 export const routes: Routes = [
   {
@@ -14,13 +13,9 @@ export const routes: Routes = [
     pathMatch : 'full'
   },
   { 
-    path: 'login',
-    component : LoginComponent,
-  },
-  { 
     path: '',
     component : LayoutComponent,
-    canActivate : [authGuard],
+    canActivate : [canActivateAuthRole],
     children : [
       { path: 'dashboard', component : DashboardComponent },
       { path: 'students', component : StudentsComponent },

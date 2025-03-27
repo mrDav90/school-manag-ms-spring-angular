@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,12 @@ public class StudentController {
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
+    @GetMapping("/paginate")
+    public ResponseEntity<Page<StudentDtoResponse>> getStudents(@RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int pageSize ) {
+        Page<StudentDtoResponse> students = studentService.getStudents(pageNumber,pageSize);
+        return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<StudentDtoResponse> getStudent(@PathVariable("id") Long id){
         Optional<StudentDtoResponse> student = studentService.getStudentById(id);
@@ -38,7 +45,7 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<StudentDtoResponse> saveStudent(@RequestBody @Valid StudentDtoRequest studentDtoRequest){
         Optional<StudentDtoResponse> studentDtoResponse = studentService.saveStudent(studentDtoRequest);
-        return new ResponseEntity<>(studentDtoResponse.get(), HttpStatus.CREATED);
+        return studentDtoResponse.map(dtoResponse -> new ResponseEntity<>(dtoResponse, HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
     @PutMapping("/{id}")
     public ResponseEntity<StudentDtoResponse> updateStudent(@PathVariable("id") Long id, @RequestBody @Valid StudentDtoRequest studentDtoRequest){

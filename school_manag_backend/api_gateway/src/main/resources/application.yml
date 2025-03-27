@@ -15,20 +15,18 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-        - id: users_service
-          uri: http://localhost:8081 #lb:http://USERS_SERVICE
+        - id: users-service
+          uri: lb://USERS-SERVICE
           predicates:
             - Path=/api/v1/users/**,/api/v1/students/**
-          #filters:
-            #- StripPrefix=1
-        - id: cours_service
-          uri: http://localhost:8083
+        - id: course-service
+          uri: lb://COURSE-SERVICE
           predicates:
             - Path=/api/v1/courses/**,/api/v1/classes**,/api/v1/teaching_assignments**
-        - id: program_service
-          uri: http://localhost:8084
+        - id: program-service
+          uri: lb://PROGRAM-SERVICE
           predicates:
-            - Path=/api/v1/sectors**,/api/v1/kinds**
+            - Path=/api/v1/sectors**,/api/v1/academic-year**,/api/v1/niveaux**
       globalcors:
         cors-configurations:
           '[/**]':
@@ -40,6 +38,7 @@ spring:
               - PUT
               - DELETE
               - OPTIONS
+            #allow-credentials: true
 
   security:
     oauth2:

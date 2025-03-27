@@ -1,9 +1,10 @@
 package com.dav.labs.users_service.users.controller;
 
 
+import com.dav.labs.users_service.clients.kafka.producer.KafkaProducer;
 import com.dav.labs.users_service.users.dto.requests.UserDtoRequest;
 import com.dav.labs.users_service.users.dto.responses.UserDtoResponse;
-import com.dav.labs.users_service.users.services.impl.UserServiceImpl;
+import com.dav.labs.users_service.users.services.IUserService;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,9 @@ import java.util.Optional;
 @Getter
 @Setter
 public class UserController {
-    private final UserServiceImpl userService;
+    private final IUserService userService;
+    private final KafkaProducer kafkaProducer;
+
 
     @GetMapping
     public ResponseEntity<List<UserDtoResponse>> getAllUsers() {
@@ -33,6 +36,14 @@ public class UserController {
     public ResponseEntity<UserDtoResponse> getUser(@PathVariable("id") Long id){
         Optional<UserDtoResponse> user = userService.getUserById(id);
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
+    }
+
+    @PostMapping("/message")
+    public ResponseEntity<String> sendMessage(
+            @RequestBody String message
+    ) {
+        kafkaProducer.sendMessage(message);
+        return ResponseEntity.ok("Message queued successfully");
     }
 
     @PostMapping
