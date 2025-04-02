@@ -37,8 +37,8 @@ class StudentControllerTest {
     @BeforeEach
     void setUp() {
         studentDtoResponses = List.of(
-                new StudentDtoResponse(1L, "Kangni", "David","david@gmail.com","david@groupeisi.com","1234567890","Dakar",false,"1234"),
-                new StudentDtoResponse(2L, "Kakashi", "Hatake","kakashi@gmail.com","kakashi@groupeisi.com","1234567850","Konoha",false,"1235")
+                new StudentDtoResponse("1", "Kangni", "David","david@gmail.com","david@groupeisi.com","1234567890","Dakar",false,"1234"),
+                new StudentDtoResponse("2", "Kakashi", "Hatake","kakashi@gmail.com","kakashi@groupeisi.com","1234567850","Konoha",false,"1235")
         );
 
         studentDtoRequest.setFirstName("Kangni");
@@ -95,12 +95,12 @@ class StudentControllerTest {
 
     @Test
     void testGetStudent_ReturnsOkResponse() {
-        when(studentService.getStudentById(1L)).thenReturn(Optional.of(studentDtoResponses.get(0)));
-        ResponseEntity<StudentDtoResponse> response = studentController.getStudent(1L);
+        when(studentService.getStudentById("1")).thenReturn(Optional.of(studentDtoResponses.get(0)));
+        ResponseEntity<StudentDtoResponse> response = studentController.getStudent("1");
         assertEquals(HttpStatus.OK , response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(studentDtoResponses.get(0),response.getBody());
-        verify(studentService, times(1)).getStudentById(1L);
+        verify(studentService, times(1)).getStudentById("1");
     }
 
     @Test
@@ -115,21 +115,21 @@ class StudentControllerTest {
 
     @Test
     void testUpdateStudent_ReturnsOkResponse() {
-        when(studentService.updateStudent(1L, studentDtoRequest)).thenReturn(Optional.of(studentDtoResponses.get(0)));
-        ResponseEntity<StudentDtoResponse> response = studentController.updateStudent(1L, studentDtoRequest);
+        when(studentService.updateStudent("1", studentDtoRequest)).thenReturn(Optional.of(studentDtoResponses.get(0)));
+        ResponseEntity<StudentDtoResponse> response = studentController.updateStudent("1", studentDtoRequest);
         assertEquals(HttpStatus.OK , response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(studentDtoResponses.get(0),response.getBody());
-        verify(studentService, times(1)).updateStudent(1L,studentDtoRequest);
+        verify(studentService, times(1)).updateStudent("1",studentDtoRequest);
     }
 
     @Test
     void testDeleteStudent_ReturnsOkResponse() {
-        when(studentService.deleteStudent(1L)).thenReturn(Boolean.TRUE);
-        ResponseEntity<Boolean> response = studentController.deleteStudent(1L);
+        when(studentService.deleteStudent("1")).thenReturn(Boolean.TRUE);
+        ResponseEntity<Boolean> response = studentController.deleteStudent("1");
         assertEquals(HttpStatus.OK , response.getStatusCode());
         assertNotNull(response.getBody());
         assertEquals(Boolean.TRUE,response.getBody());
-        verify(studentService, times(1)).deleteStudent(1L);
+        verify(studentService, times(1)).deleteStudent("1");
     }
 }

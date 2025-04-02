@@ -1,6 +1,6 @@
 package com.dav.labs.users_service.teachers.dto.responses;
 
-import com.dav.labs.users_service.clients.models.TeachingAssignment;
+import com.dav.labs.users_service.clients.feign.models.TeachingAssignment;
 import lombok.*;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class TeacherDtoResponse implements Serializable {
-    private Long id;
+    private String id;
     private String firstName;
     private String lastName;
     private String emailPro;

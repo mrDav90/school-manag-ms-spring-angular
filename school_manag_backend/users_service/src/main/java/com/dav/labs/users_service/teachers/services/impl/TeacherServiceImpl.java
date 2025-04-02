@@ -44,13 +44,13 @@ public class TeacherServiceImpl implements ITeacherService {
         return Optional.of(teacherMapper.toTeacherDtoResponseList(teachersEntities));
     }
     @Override
-    public Optional<TeacherDtoResponse> getTeacherById(Long id){
+    public Optional<TeacherDtoResponse> getTeacherById(String id){
         return teacherRepository.findById(id)
                 .map(teacher -> Optional.of(teacherMapper.toTeacherDtoResponse(teacher)))
                 .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("teacher.notfound", new Object[]{id}, Locale.getDefault())));
     }
     @Override
-    public Optional<TeacherDtoResponse> updateTeacher(Long id, TeacherDtoRequest teacherDtoRequest){
+    public Optional<TeacherDtoResponse> updateTeacher(String id, TeacherDtoRequest teacherDtoRequest){
         return teacherRepository.findById(id)
                 .map(teacher -> {
                     teacher.setFirstName(teacherDtoRequest.getFirstName());
@@ -64,7 +64,7 @@ public class TeacherServiceImpl implements ITeacherService {
                 }).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("teacher.notfound", new Object[]{id}, Locale.getDefault())));
     }
     @Override
-    public boolean deleteTeacher(Long id){
+    public boolean deleteTeacher(String id){
         if (teacherRepository.findById(id).isEmpty()) {
             throw new EntityNotFoundException(messageSource.getMessage("teacher.notfound", new Object[]{id}, Locale.getDefault()));
         }

@@ -21,6 +21,9 @@ spring:
     config:
       enabled: false
 
+  main:
+    allow-bean-definition-overriding: true
+
   kafka:
     consumer:
       bootstrap-servers: localhost:9092

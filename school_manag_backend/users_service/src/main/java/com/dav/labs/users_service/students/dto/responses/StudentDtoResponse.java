@@ -10,7 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 public class StudentDtoResponse implements Serializable {
-    private Long id;
+    private String id;
     private String firstName;
     private String lastName;
     private String emailPro;

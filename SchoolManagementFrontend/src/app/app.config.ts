@@ -29,7 +29,7 @@ export const appConfig: ApplicationConfig = {
       config: {
         url: 'http://localhost:8080',
         realm: 'school-manag-realm',
-        clientId: 'school-manag-client'
+        clientId: 'school-manag-frontend-client'
       },
       initOptions: {
         //onLoad: 'check-sso',

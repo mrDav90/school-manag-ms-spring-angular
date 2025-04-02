@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ICourseService {
     Optional<CourseDtoResponse> saveCourse(CourseDtoRequest courseDtoRequest);
     Optional<List<CourseDtoResponse>> getAllCourses();
-    Optional<CourseDtoResponse> getCourseById(Long courseId);
-    Optional<CourseDtoResponse> updateCourse(Long courseId, CourseDtoRequest courseDtoRequest);
-    boolean deleteCourse(Long courseId);
+    Optional<CourseDtoResponse> getCourseById(String courseId);
+    Optional<CourseDtoResponse> updateCourse(String courseId, CourseDtoRequest courseDtoRequest);
+    boolean deleteCourse(String courseId);
 }

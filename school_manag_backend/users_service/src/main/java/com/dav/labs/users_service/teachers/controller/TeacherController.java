@@ -30,7 +30,7 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TeacherDtoResponse> getTeacher(@PathVariable("id") Long id){
+    public ResponseEntity<TeacherDtoResponse> getTeacher(@PathVariable("id") String id){
         Optional<TeacherDtoResponse> teacher = teacherService.getTeacherById(id);
         return new ResponseEntity<>(teacher.get(), HttpStatus.OK);
     }
@@ -41,13 +41,13 @@ public class TeacherController {
         return new ResponseEntity<>(teacherDtoResponse.get(), HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<TeacherDtoResponse> updateTeacher(@PathVariable("id") Long id, @RequestBody @Valid TeacherDtoRequest teacherDtoRequest){
+    public ResponseEntity<TeacherDtoResponse> updateTeacher(@PathVariable("id") String id, @RequestBody @Valid TeacherDtoRequest teacherDtoRequest){
         Optional<TeacherDtoResponse> teacherDtoResponse = teacherService.updateTeacher(id, teacherDtoRequest);
         return new ResponseEntity<>(teacherDtoResponse.get(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteTeacher(@PathVariable("id") Long id){
+    public ResponseEntity<Boolean> deleteTeacher(@PathVariable("id") String id){
         boolean result = teacherService.deleteTeacher(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

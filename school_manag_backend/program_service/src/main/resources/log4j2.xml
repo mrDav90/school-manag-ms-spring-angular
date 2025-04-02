@@ -45,6 +45,10 @@
             <AppenderRef ref="Console" />
         </Logger>
 
+        <Logger name="com.dav.labs.program_service.classes.service.impl" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+
     </Loggers>
 
 </Configuration>

@@ -18,15 +18,15 @@ spring:
         - id: users-service
           uri: lb://USERS-SERVICE
           predicates:
-            - Path=/api/v1/users/**,/api/v1/students/**
+            - Path=/api/v1/users/**,/api/v1/students/**,/api/v1/teachers/**,/api/v1/registrations/**
         - id: course-service
           uri: lb://COURSE-SERVICE
           predicates:
-            - Path=/api/v1/courses/**,/api/v1/classes**,/api/v1/teaching_assignments**
+            - Path=/api/v1/subjects/**,/api/v1/courses/**
         - id: program-service
           uri: lb://PROGRAM-SERVICE
           predicates:
-            - Path=/api/v1/sectors**,/api/v1/academic-year**,/api/v1/niveaux**
+            - Path=/api/v1/sectors/**,/api/v1/academic-year/**,/api/v1/classes/**
       globalcors:
         cors-configurations:
           '[/**]':

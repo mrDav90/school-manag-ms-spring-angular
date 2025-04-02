@@ -30,7 +30,7 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CourseDtoResponse> getCourse(@PathVariable("id") Long id){
+    public ResponseEntity<CourseDtoResponse> getCourse(@PathVariable("id") String id){
         Optional<CourseDtoResponse> course = courseService.getCourseById(id);
         return new ResponseEntity<>(course.get(), HttpStatus.OK);
     }
@@ -41,13 +41,13 @@ public class CourseController {
         return new ResponseEntity<>(courseDtoResponse.get(), HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<CourseDtoResponse> updateCourse(@PathVariable("id") Long id, @RequestBody @Valid CourseDtoRequest courseDtoRequest){
+    public ResponseEntity<CourseDtoResponse> updateCourse(@PathVariable("id") String id, @RequestBody @Valid CourseDtoRequest courseDtoRequest){
         Optional<CourseDtoResponse> courseDtoResponse = courseService.updateCourse(id, courseDtoRequest);
         return new ResponseEntity<>(courseDtoResponse.get(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteCourse(@PathVariable("id") Long id){
+    public ResponseEntity<Boolean> deleteCourse(@PathVariable("id") String id){
         boolean result = courseService.deleteCourse(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

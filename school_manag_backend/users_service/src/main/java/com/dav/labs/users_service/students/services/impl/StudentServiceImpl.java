@@ -35,11 +35,11 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public Optional<StudentDtoResponse> saveStudent(StudentDtoRequest studentDtoRequest){
-        if (studentRepository.findByEmailPerso(studentDtoRequest.getEmailPro()).isPresent()) {
+        if (studentRepository.findByEmailPerso(studentDtoRequest.getEmailPerso()).isPresent()) {
             throw new EntityExistsException(messageSource.getMessage("student.exists", new Object[]{studentDtoRequest.getEmailPro()}, Locale.getDefault()));
         }
         StudentEntity student = studentMapper.toStudentEntity(studentDtoRequest);
-        logger.info("EmailPro: {}", student);
+        logger.info("Etudiant: {}", student);
 
         CreateKcClientResponse response = kcClientService.createUser(
                 studentDtoRequest.getEmailPro() , studentDtoRequest.getEmailPro() , "passer"
@@ -64,13 +64,13 @@ public class StudentServiceImpl implements IStudentService {
         return studentsEntities.map(studentMapper::toStudentDtoResponse);
     }
     @Override
-    public Optional<StudentDtoResponse> getStudentById(Long id){
+    public Optional<StudentDtoResponse> getStudentById(String id){
         return studentRepository.findById(id)
                 .map(student -> Optional.of(studentMapper.toStudentDtoResponse(student)))
                 .orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("student.notfound", new Object[]{id}, Locale.getDefault())));
     }
     @Override
-    public Optional<StudentDtoResponse> updateStudent(Long id, StudentDtoRequest studentDtoRequest){
+    public Optional<StudentDtoResponse> updateStudent(String id, StudentDtoRequest studentDtoRequest){
         return studentRepository.findById(id)
                 .map(student -> {
                     student.setEmailPro(studentDtoRequest.getEmailPro());
@@ -80,7 +80,7 @@ public class StudentServiceImpl implements IStudentService {
                 }).orElseThrow(() -> new EntityNotFoundException(messageSource.getMessage("student.notfound", new Object[]{id}, Locale.getDefault())));
     }
     @Override
-    public boolean deleteStudent(Long id){
+    public boolean deleteStudent(String id){
         var student = studentRepository.findById(id);
         if (student.isEmpty()) {
             throw new EntityNotFoundException(messageSource.getMessage("student.notfound", new Object[]{id}, Locale.getDefault()));

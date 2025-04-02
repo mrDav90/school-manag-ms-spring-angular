@@ -1,6 +1,6 @@
 package com.dav.labs.users_service.teachers.entities;
 
-import com.dav.labs.users_service.clients.models.TeachingAssignment;
+import com.dav.labs.users_service.clients.feign.models.TeachingAssignment;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,8 +16,8 @@ import java.util.List;
 @Table(name = "teachers")
 public class TeacherEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false)
     private String firstName;

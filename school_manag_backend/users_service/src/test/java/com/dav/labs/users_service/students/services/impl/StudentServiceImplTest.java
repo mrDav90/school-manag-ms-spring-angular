@@ -1,5 +1,7 @@
 package com.dav.labs.users_service.students.services.impl;
 
+import com.dav.labs.users_service.clients.keycloak.CreateKcClientResponse;
+import com.dav.labs.users_service.clients.keycloak.KcClientService;
 import com.dav.labs.users_service.exception.EntityExistsException;
 import com.dav.labs.users_service.exception.EntityNotFoundException;
 import com.dav.labs.users_service.students.dto.requests.StudentDtoRequest;
@@ -38,12 +40,16 @@ class StudentServiceImplTest {
     private StudentMapper studentMapper;
     @Mock
     private MessageSource messageSource;
+    @Mock
+    private KcClientService kcClientService;
 
 
     @Test
     void saveStudentOK() {
         when(studentRepository.findByEmailPerso(anyString())).thenReturn(Optional.empty());
         when(studentMapper.toStudentEntity(any())).thenReturn(getStudentEntity());
+        //when(kcClientService.createUser(anyString(), anyString(), anyString())).thenReturn(getCreateKcClientResponse());
+
         when(studentRepository.save(any())).thenReturn(getStudentEntity());
         when(studentMapper.toStudentDtoResponse(any())).thenReturn(getStudentDtoResponse());
 
@@ -55,6 +61,7 @@ class StudentServiceImplTest {
     void saveStudentKO() {
         when(studentRepository.findByEmailPerso(anyString())).thenReturn(Optional.of(getStudentEntity()));
         when(messageSource.getMessage(eq("student.exists"), any(), any(Locale.class))).thenReturn("The student with emailPerso = david@gmail.com is already created");
+        //when(kcClientService.createUser(anyString(), anyString(), anyString())).thenReturn(getCreateKcClientResponse());
 
         EntityExistsException exception = assertThrows(EntityExistsException.class, () -> studentService.saveStudent(getStudentDtoRequest()));
         assertEquals("The student with emailPerso = david@gmail.com is already created", exception.getMessage());
@@ -95,59 +102,59 @@ class StudentServiceImplTest {
 
     @Test
     void getStudentByIdOK() {
-        when(studentRepository.findById(anyLong())).thenReturn(Optional.of(getStudentEntity()));
+        when(studentRepository.findById(anyString())).thenReturn(Optional.of(getStudentEntity()));
         when(studentMapper.toStudentDtoResponse(any())).thenReturn(getStudentDtoResponse());
 
-        Optional<StudentDtoResponse> student = studentService.getStudentById(1L);
+        Optional<StudentDtoResponse> student = studentService.getStudentById("1");
         assertTrue(student.isPresent());
         assertEquals(1L, student.get().getId());
     }
 
     @Test
     void getStudentByIdKO() {
-        when(studentRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(studentRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("student.notfound"), any(), any(Locale.class))).thenReturn("Requested student with id = 1 does not exist");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> studentService.getStudentById(1L));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> studentService.getStudentById("1"));
         assertEquals("Requested student with id = 1 does not exist", exception.getMessage());
     }
 
     @Test
     void updateStudentOK() {
-        when(studentRepository.findById(anyLong())).thenReturn(Optional.of(getStudentEntity()));
+        when(studentRepository.findById(anyString())).thenReturn(Optional.of(getStudentEntity()));
         when(studentRepository.save(any())).thenReturn(getStudentEntity());
         when(studentMapper.toStudentDtoResponse(any())).thenReturn(getStudentDtoResponse());
 
-        Optional<StudentDtoResponse> updatedStudent = studentService.updateStudent(1L, getStudentDtoRequest());
+        Optional<StudentDtoResponse> updatedStudent = studentService.updateStudent("1", getStudentDtoRequest());
         assertTrue(updatedStudent.isPresent());
         assertEquals(1L, updatedStudent.get().getId());
     }
 
     @Test
     void updateStudentKO() {
-        when(studentRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(studentRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("student.notfound"), any(), any(Locale.class)))
                 .thenReturn("Requested student with id = 1 does not exist");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> studentService.updateStudent(1L ,getStudentDtoRequest()));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> studentService.updateStudent("1" ,getStudentDtoRequest()));
         assertEquals("Requested student with id = 1 does not exist", exception.getMessage());
     }
 
     @Test
     void deleteStudentOK() {
-        when(studentRepository.findById(anyLong())).thenReturn(Optional.of(getStudentEntity()));
-        boolean result = studentService.deleteStudent(anyLong());
+        when(studentRepository.findById(anyString())).thenReturn(Optional.of(getStudentEntity()));
+        boolean result = studentService.deleteStudent(anyString());
         assertTrue(result);
-        verify(studentRepository, times(1)).deleteById(anyLong());
+        verify(studentRepository, times(1)).deleteById(anyString());
     }
 
     @Test
     void deleteStudentKO() {
-        when(studentRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(studentRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("student.notfound"), any(), any(Locale.class)))
                 .thenReturn("Requested student with id = 1 does not exist");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> studentService.deleteStudent(1L));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> studentService.deleteStudent("1"));
         assertEquals("Requested student with id = 1 does not exist", exception.getMessage());
     }
 
@@ -165,7 +172,7 @@ class StudentServiceImplTest {
     }
     private StudentEntity getStudentEntity(){
         StudentEntity studentEntity = new StudentEntity();
-        studentEntity.setId(1L);
+        studentEntity.setId("1");
         studentEntity.setFirstName("Kangni");
         studentEntity.setLastName("David");
         studentEntity.setEmailPerso("david@gmail.com");
@@ -178,7 +185,7 @@ class StudentServiceImplTest {
     }
     private StudentDtoResponse getStudentDtoResponse(){
         StudentDtoResponse studentDtoResponse = new StudentDtoResponse();
-        studentDtoResponse.setId(1L);
+        studentDtoResponse.setId("1");
         studentDtoResponse.setFirstName("Kangni");
         studentDtoResponse.setLastName("David");
         studentDtoResponse.setEmailPerso("david@gmail.com");
@@ -190,5 +197,9 @@ class StudentServiceImplTest {
         return studentDtoResponse;
     }
 
+    private CreateKcClientResponse getCreateKcClientResponse(){
+        CreateKcClientResponse createKcClientResponse = new CreateKcClientResponse();
+        return createKcClientResponse;
+    }
 
 }

@@ -29,7 +29,8 @@ public class LoggingAspect {
     @Pointcut(
             "within(com.dav.labs..*)" +
             " || within(com.dav.labs.program_service.academic_year.controller.*)" +
-            " || within(com.dav.labs.program_service.sector.controller.*)"
+            " || within(com.dav.labs.program_service.sector.controller.*)" +
+            " || within(com.dav.labs.program_service.classes.controller.*)"
     )
     public void applicationPackagePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.

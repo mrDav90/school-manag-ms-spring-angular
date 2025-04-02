@@ -10,8 +10,11 @@ import java.util.List;
 
 @Mapper
 public interface CourseMapper {
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "description", target = "description")
+    @Mapping(source = "subjectId", target = "subjectId")
+    @Mapping(source = "classeId", target = "classeId")
+    @Mapping(source = "academicYearId", target = "academicYearId")
+    @Mapping(source = "courseType", target = "courseType")
+    @Mapping(source = "coefficient", target = "coefficient")
     CourseEntity toCourseEntity(CourseDtoRequest courseDtoRequest);
     CourseDtoResponse toCourseDtoResponse(CourseEntity courseEntity);
     List<CourseEntity> toCourseEntityList(List<CourseDtoRequest> courseDtoRequestList);

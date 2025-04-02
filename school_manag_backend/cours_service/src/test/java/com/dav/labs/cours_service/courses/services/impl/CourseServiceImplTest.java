@@ -1,5 +1,8 @@
 package com.dav.labs.cours_service.courses.services.impl;
 
+import com.dav.labs.cours_service.clients.models.AcademicYear;
+import com.dav.labs.cours_service.clients.models.Classe;
+import com.dav.labs.cours_service.courses.entities.CourseType;
 import com.dav.labs.cours_service.exception.EntityExistsException;
 import com.dav.labs.cours_service.exception.EntityNotFoundException;
 import com.dav.labs.cours_service.courses.dto.requests.CourseDtoRequest;
@@ -7,6 +10,7 @@ import com.dav.labs.cours_service.courses.dto.responses.CourseDtoResponse;
 import com.dav.labs.cours_service.courses.entities.CourseEntity;
 import com.dav.labs.cours_service.courses.mapper.CourseMapper;
 import com.dav.labs.cours_service.courses.repository.CourseRepository;
+import com.dav.labs.cours_service.subjects.dto.responses.SubjectDtoResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
 
+import javax.security.auth.Subject;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -35,7 +40,7 @@ public class CourseServiceImplTest {
 
     @Test
     void saveCourseOK() {
-        when(courseRepository.findByName(anyString())).thenReturn(Optional.empty());
+        when(courseRepository.findBySubjectIdAndClasseIdAndAcademicYearId(anyString() , anyString(), anyString())).thenReturn(Optional.empty());
         when(courseMapper.toCourseEntity(any())).thenReturn(getCourseEntity());
         when(courseRepository.save(any())).thenReturn(getCourseEntity());
         when(courseMapper.toCourseDtoResponse(any())).thenReturn(getCourseDtoResponse());
@@ -46,11 +51,11 @@ public class CourseServiceImplTest {
 
     @Test
     void saveCourseKO() {
-        when(courseRepository.findByName(anyString())).thenReturn(Optional.of(getCourseEntity()));
-        when(messageSource.getMessage(eq("course.exists"), any(), any(Locale.class))).thenReturn("the course with name = jee is already created");
+        when(courseRepository.findBySubjectIdAndClasseIdAndAcademicYearId(anyString() , anyString() , anyString())).thenReturn(Optional.of(getCourseEntity()));
+        when(messageSource.getMessage(eq("course.exists"), any() , any(Locale.class))).thenReturn("The course jee for M1GL in 2024-2025 is already created");
 
         EntityExistsException exception = assertThrows(EntityExistsException.class, () -> courseService.saveCourse(getCourseDtoRequest()));
-        assertEquals("the course with name = jee is already created", exception.getMessage());
+        assertEquals("The course jee for M1GL in 2024-2025 is already created", exception.getMessage());
         assertNotNull(exception);
     }
 
@@ -66,80 +71,91 @@ public class CourseServiceImplTest {
 
     @Test
     void getCourseByIdOK() {
-        when(courseRepository.findById(anyLong())).thenReturn(Optional.of(getCourseEntity()));
+        when(courseRepository.findById(anyString())).thenReturn(Optional.of(getCourseEntity()));
         when(courseMapper.toCourseDtoResponse(any())).thenReturn(getCourseDtoResponse());
 
-        Optional<CourseDtoResponse> course = courseService.getCourseById(1L);
+        Optional<CourseDtoResponse> course = courseService.getCourseById("1");
         assertTrue(course.isPresent());
-        assertEquals(1L, course.get().getId());
+        assertEquals("1", course.get().getId());
     }
 
     @Test
     void getCourseByIdKO() {
-        when(courseRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(courseRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("course.notfound"), any(), any(Locale.class))).thenReturn("Course with id=1 is not found");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> courseService.getCourseById(1L));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> courseService.getCourseById("1"));
         assertEquals("Course with id=1 is not found", exception.getMessage());
     }
 
     @Test
     void updateCourseOK() {
-        when(courseRepository.findById(anyLong())).thenReturn(Optional.of(getCourseEntity()));
+        when(courseRepository.findById(anyString())).thenReturn(Optional.of(getCourseEntity()));
         when(courseRepository.save(any())).thenReturn(getCourseEntity());
         when(courseMapper.toCourseDtoResponse(any())).thenReturn(getCourseDtoResponse());
 
-        Optional<CourseDtoResponse> updatedCourse = courseService.updateCourse(1L, getCourseDtoRequest());
+        Optional<CourseDtoResponse> updatedCourse = courseService.updateCourse("1", getCourseDtoRequest());
         assertTrue(updatedCourse.isPresent());
-        assertEquals(1L, updatedCourse.get().getId());
+        assertEquals("1", updatedCourse.get().getId());
     }
 
     @Test
     void updateCourseKO() {
-        when(courseRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(courseRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("course.notfound"), any(), any(Locale.class)))
                 .thenReturn("Course not found");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> courseService.updateCourse(1L ,getCourseDtoRequest()));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> courseService.updateCourse("1" ,getCourseDtoRequest()));
         assertEquals("Course not found", exception.getMessage());
     }
 
     @Test
     void deleteCourseOK() {
-        when(courseRepository.findById(anyLong())).thenReturn(Optional.of(getCourseEntity()));
-        boolean result = courseService.deleteCourse(anyLong());
+        when(courseRepository.findById(anyString())).thenReturn(Optional.of(getCourseEntity()));
+        boolean result = courseService.deleteCourse(anyString());
         assertTrue(result);
-        verify(courseRepository, times(1)).deleteById(anyLong());
+        verify(courseRepository, times(1)).deleteById(anyString());
     }
 
     @Test
     void deleteCourseKO() {
-        when(courseRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(courseRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("course.notfound"), any(), any(Locale.class)))
                 .thenReturn("Course not found");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> courseService.deleteCourse(1L));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> courseService.deleteCourse("1"));
         assertEquals("Course not found", exception.getMessage());
     }
 
     private CourseDtoRequest getCourseDtoRequest(){
         CourseDtoRequest courseDtoRequest = new CourseDtoRequest();
-        courseDtoRequest.setName("jee");
-        courseDtoRequest.setDescription("Java Enterprise Edition");
+        courseDtoRequest.setSubjectId("1");
+        courseDtoRequest.setClasseId("1");
+        courseDtoRequest.setAcademicYearId("1");
+        courseDtoRequest.setCourseType(CourseType.ANNUAL);
+        courseDtoRequest.setCoefficient(3);
         return courseDtoRequest;
     }
     private CourseEntity getCourseEntity(){
         CourseEntity courseEntity = new CourseEntity();
-        courseEntity.setId(1L);
-        courseEntity.setName("jee");
-        courseEntity.setDescription("Java Enterprise Edition");
+        courseEntity.setId("1");
+        courseEntity.setSubjectId("1");
+        courseEntity.setClasseId("1");
+        courseEntity.setAcademicYearId("1");
+        courseEntity.setCourseType(CourseType.ANNUAL);
+        courseEntity.setCoefficient(3);
         return courseEntity;
     }
     private CourseDtoResponse getCourseDtoResponse(){
         CourseDtoResponse courseDtoResponse = new CourseDtoResponse();
-        courseDtoResponse.setId(1L);
-        courseDtoResponse.setName("jee");
-        courseDtoResponse.setDescription("Java Enterprise Edition");
+        courseDtoResponse.setSubjectId("1");
+        courseDtoResponse.setSubject(new SubjectDtoResponse());
+        courseDtoResponse.setClasseId("1");
+        courseDtoResponse.setClasse(new Classe());
+        courseDtoResponse.setAcademicYearId("1");
+        courseDtoResponse.setAcademicYear(new AcademicYear());
+        courseDtoResponse.setCourseType(CourseType.ANNUAL);
+        courseDtoResponse.setCoefficient(3);
         return courseDtoResponse;
     }
 

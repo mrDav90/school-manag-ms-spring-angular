@@ -37,7 +37,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDtoResponse> getStudent(@PathVariable("id") Long id){
+    public ResponseEntity<StudentDtoResponse> getStudent(@PathVariable("id") String id){
         Optional<StudentDtoResponse> student = studentService.getStudentById(id);
         return new ResponseEntity<>(student.get(), HttpStatus.OK);
     }
@@ -48,13 +48,13 @@ public class StudentController {
         return studentDtoResponse.map(dtoResponse -> new ResponseEntity<>(dtoResponse, HttpStatus.CREATED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<StudentDtoResponse> updateStudent(@PathVariable("id") Long id, @RequestBody @Valid StudentDtoRequest studentDtoRequest){
+    public ResponseEntity<StudentDtoResponse> updateStudent(@PathVariable("id") String id, @RequestBody @Valid StudentDtoRequest studentDtoRequest){
         Optional<StudentDtoResponse> studentDtoResponse = studentService.updateStudent(id, studentDtoRequest);
         return new ResponseEntity<>(studentDtoResponse.get(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteStudent(@PathVariable("id") Long id){
+    public ResponseEntity<Boolean> deleteStudent(@PathVariable("id") String id){
         boolean result = studentService.deleteStudent(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

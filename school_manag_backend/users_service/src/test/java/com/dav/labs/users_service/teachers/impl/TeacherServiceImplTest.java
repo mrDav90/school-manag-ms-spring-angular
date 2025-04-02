@@ -67,59 +67,59 @@ class TeacherServiceImplTest {
 
     @Test
     void getTeacherByIdOK() {
-        when(teacherRepository.findById(anyLong())).thenReturn(Optional.of(getTeacherEntity()));
+        when(teacherRepository.findById(anyString())).thenReturn(Optional.of(getTeacherEntity()));
         when(teacherMapper.toTeacherDtoResponse(any())).thenReturn(getTeacherDtoResponse());
 
-        Optional<TeacherDtoResponse> teacher = teacherService.getTeacherById(1L);
+        Optional<TeacherDtoResponse> teacher = teacherService.getTeacherById("1");
         assertTrue(teacher.isPresent());
-        assertEquals(1L, teacher.get().getId());
+        assertEquals("1", teacher.get().getId());
     }
 
     @Test
     void getTeacherByIdKO() {
-        when(teacherRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(teacherRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("teacher.notfound"), any(), any(Locale.class))).thenReturn("Teacher with id=1 is not found");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> teacherService.getTeacherById(1L));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> teacherService.getTeacherById("1"));
         assertEquals("Teacher with id=1 is not found", exception.getMessage());
     }
 
     @Test
     void updateTeacherOK() {
-        when(teacherRepository.findById(anyLong())).thenReturn(Optional.of(getTeacherEntity()));
+        when(teacherRepository.findById(anyString())).thenReturn(Optional.of(getTeacherEntity()));
         when(teacherRepository.save(any())).thenReturn(getTeacherEntity());
         when(teacherMapper.toTeacherDtoResponse(any())).thenReturn(getTeacherDtoResponse());
 
-        Optional<TeacherDtoResponse> updatedTeacher = teacherService.updateTeacher(1L, getTeacherDtoRequest());
+        Optional<TeacherDtoResponse> updatedTeacher = teacherService.updateTeacher("1", getTeacherDtoRequest());
         assertTrue(updatedTeacher.isPresent());
-        assertEquals(1L, updatedTeacher.get().getId());
+        assertEquals("1", updatedTeacher.get().getId());
     }
 
     @Test
     void updateTeacherKO() {
-        when(teacherRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(teacherRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("teacher.notfound"), any(), any(Locale.class)))
                 .thenReturn("Teacher not found");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> teacherService.updateTeacher(1L ,getTeacherDtoRequest()));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> teacherService.updateTeacher("1" ,getTeacherDtoRequest()));
         assertEquals("Teacher not found", exception.getMessage());
     }
 
     @Test
     void deleteTeacherOK() {
-        when(teacherRepository.findById(anyLong())).thenReturn(Optional.of(getTeacherEntity()));
-        boolean result = teacherService.deleteTeacher(anyLong());
+        when(teacherRepository.findById(anyString())).thenReturn(Optional.of(getTeacherEntity()));
+        boolean result = teacherService.deleteTeacher(anyString());
         assertTrue(result);
-        verify(teacherRepository, times(1)).deleteById(anyLong());
+        verify(teacherRepository, times(1)).deleteById(anyString());
     }
 
     @Test
     void deleteTeacherKO() {
-        when(teacherRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(teacherRepository.findById(anyString())).thenReturn(Optional.empty());
         when(messageSource.getMessage(eq("teacher.notfound"), any(), any(Locale.class)))
                 .thenReturn("Teacher not found");
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> teacherService.deleteTeacher(1L));
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> teacherService.deleteTeacher("1"));
         assertEquals("Teacher not found", exception.getMessage());
     }
 
@@ -134,7 +134,7 @@ class TeacherServiceImplTest {
     }
     private TeacherEntity getTeacherEntity(){
         TeacherEntity teacherEntity = new TeacherEntity();
-        teacherEntity.setId(1L);
+        teacherEntity.setId("1");
         teacherEntity.setFirstName("ngor");
         teacherEntity.setLastName("seck");
         teacherEntity.setEmailPro("ngorseck@groupeisi.com");
@@ -145,7 +145,7 @@ class TeacherServiceImplTest {
     }
     private TeacherDtoResponse getTeacherDtoResponse(){
         TeacherDtoResponse teacherDtoResponse = new TeacherDtoResponse();
-        teacherDtoResponse.setId(1L);
+        teacherDtoResponse.setId("1");
         teacherDtoResponse.setFirstName("ngor");
         teacherDtoResponse.setLastName("seck");
         teacherDtoResponse.setEmailPro("ngorseck@groupeisi.com");

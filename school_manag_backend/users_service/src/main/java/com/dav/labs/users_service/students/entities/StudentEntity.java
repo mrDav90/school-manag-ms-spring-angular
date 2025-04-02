@@ -14,8 +14,8 @@ import java.io.Serializable;
 @Table(name = "students")
 public class StudentEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false)
     private String firstName;

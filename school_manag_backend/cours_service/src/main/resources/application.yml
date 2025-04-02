@@ -21,6 +21,9 @@ spring:
     config:
       enabled: false
 
+  main:
+    allow-bean-definition-overriding: true
+
 eureka:
   instance:
     prefer-ip-address: true

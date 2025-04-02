@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ITeacherService {
     Optional<TeacherDtoResponse> saveTeacher(TeacherDtoRequest teacherDtoRequest);
     Optional<List<TeacherDtoResponse>> getAllTeachers();
-    Optional<TeacherDtoResponse> getTeacherById(Long teacherId);
-    Optional<TeacherDtoResponse> updateTeacher(Long teacherId, TeacherDtoRequest teacherDtoRequest);
-    boolean deleteTeacher(Long teacherId);
+    Optional<TeacherDtoResponse> getTeacherById(String teacherId);
+    Optional<TeacherDtoResponse> updateTeacher(String teacherId, TeacherDtoRequest teacherDtoRequest);
+    boolean deleteTeacher(String teacherId);
 }

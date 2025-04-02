@@ -39,7 +39,6 @@ public class KcClientService implements IKcClientService {
                 .realm(realm)
                 .clientId(clientId)
                 .clientSecret(clientSecret)
-                //.grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .grantType(OAuth2Constants.PASSWORD)
                 .username(username)
                 .password(password)

@@ -1,6 +1,6 @@
 package com.dav.labs.users_service.teachers.dto.requests;
 
-import com.dav.labs.users_service.clients.models.TeachingAssignment;
+import com.dav.labs.users_service.clients.feign.models.TeachingAssignment;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
