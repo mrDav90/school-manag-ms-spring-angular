@@ -13,6 +13,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { StudentService } from './services/student.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { PaginatedResponse } from '../../shared/models/paginated-response';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-students',
@@ -31,22 +33,54 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class StudentsComponent implements OnInit {
   isVisible = false;
+  router = inject(Router);
+  activatedRoute = inject(ActivatedRoute);
   tableLoading = false;
   currentRecord: StudentResponse | null = null;
   modalService = inject(NzModalService);
   studentService = inject(StudentService);
   private readonly message = inject(NzMessageService);
   listStudents: StudentResponse[] = [];
+  pageNumber = 1;
+  pageSize = 2;
+  totalElements = 0;
+  isLastPage = false;
 
   ngOnInit(): void {
-    this.loadStudents();
+    //this.loadStudents();
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.pageNumber = params['page'] || 1;
+      this.pageSize = params['size'] || 2;
+      this.loadStudents();
+    });
+    
   }
+
+  // loadStudents() {
+  //   this.tableLoading = true;
+  //   this.studentService.all<StudentResponse[]>('api/v1/students').subscribe({
+  //     next: (data) => {
+  //       this.listStudents = data;
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //       this.tableLoading = false;
+  //     },
+  //     complete: () => {
+  //       console.log('traitement termine.');
+  //       this.tableLoading = false;
+  //     },
+  //   });
+  // }
 
   loadStudents() {
     this.tableLoading = true;
-    this.studentService.all<StudentResponse[]>('api/v1/students').subscribe({
+    this.studentService.all<PaginatedResponse<StudentResponse>>(`api/v1/students/paginate?pageNumber=${this.pageNumber-1}&pageSize=${this.pageSize}`).subscribe({
       next: (data) => {
-        this.listStudents = data;
+        this.listStudents = data.content;
+        this.totalElements = data.totalElements;
+        this.isLastPage = data.last;
       },
       error: (error) => {
         console.log(error);
@@ -97,5 +131,28 @@ export class StudentsComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+  }
+
+  onPageChange(pageIndex: number): void {
+    this.pageNumber = pageIndex;
+    this.router.navigate(['/students'], {
+      queryParams: {
+        page: pageIndex,
+        size: this.pageSize
+      }
+    });
+    this.loadStudents();
+  }
+
+  onPageSizeChange(pageSize: number): void {
+    this.pageSize = pageSize;
+    //this.pageNumber = 1;
+    this.router.navigate(['/students'], {
+      queryParams: {
+        page: this.pageNumber,
+        size: pageSize
+      }
+    });
+    this.loadStudents();
   }
 }

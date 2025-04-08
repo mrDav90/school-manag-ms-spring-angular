@@ -9,3 +9,4 @@ export interface StudentResponse {
     archive: boolean;
     registrationNu: string;
 }
+

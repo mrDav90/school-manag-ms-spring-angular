@@ -1,0 +1,16 @@
+meta {
+  name: Paginated List Students
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:8088/api/v1/students/paginate?pageNumber=0&pageSize=10
+  body: none
+  auth: inherit
+}
+
+params:query {
+  pageNumber: 0
+  pageSize: 10
+}

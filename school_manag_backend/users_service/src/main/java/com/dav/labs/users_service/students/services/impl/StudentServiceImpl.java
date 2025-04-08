@@ -14,6 +14,7 @@ import com.dav.labs.users_service.users.services.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,7 +43,11 @@ public class StudentServiceImpl implements IStudentService {
         logger.info("Etudiant: {}", student);
 
         CreateKcClientResponse response = kcClientService.createUser(
-                studentDtoRequest.getEmailPro() , studentDtoRequest.getEmailPro() , "passer"
+                student.getFirstName(),
+                student.getLastName(),
+                studentDtoRequest.getEmailPro(),
+                studentDtoRequest.getEmailPro(),
+                "passer"
         );
         System.out.println(response);
         if (response.getCreated()){
@@ -57,13 +62,17 @@ public class StudentServiceImpl implements IStudentService {
         List<StudentEntity> studentsEntities = studentRepository.findAll();
         return Optional.of(studentMapper.toStudentDtoResponseList(studentsEntities));
     }
+
+
     @Override
+    @Cacheable(value = "students")
     public Page<StudentDtoResponse> getStudents(int pageNumber , int pageSize){
         Pageable pagedRequest = PageRequest.of(pageNumber,pageSize);
         Page<StudentEntity> studentsEntities = studentRepository.findAll(pagedRequest);
         return studentsEntities.map(studentMapper::toStudentDtoResponse);
     }
     @Override
+    @Cacheable(value = "students", key = "#id")
     public Optional<StudentDtoResponse> getStudentById(String id){
         return studentRepository.findById(id)
                 .map(student -> Optional.of(studentMapper.toStudentDtoResponse(student)))

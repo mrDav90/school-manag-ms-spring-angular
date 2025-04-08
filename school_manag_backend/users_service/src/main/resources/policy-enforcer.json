@@ -1,0 +1,41 @@
+{
+  "realm": "school-manag-realm",
+  "auth-server-url": "http://localhost:8080",
+  "resource": "school-manag-client",
+  "credentials": {
+    "secret": "j6R3VCKbvVuGohFK5kOLPOmLnJhdtGAt"
+  },
+  "http-method-as-scope": true,
+  "paths" : [
+    {
+      "path": "/swagger-ui/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v3/api-docs/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/api/v1/students/*",
+      "enforcement-mode": "ENFORCING",
+      "methods": [
+        {
+          "method": "GET",
+          "scopes": ["read"]
+        },
+        {
+          "method": "POST",
+          "scopes": ["create"]
+        },
+        {
+          "method": "PUT",
+          "scopes": ["update"]
+        },
+        {
+          "method": "DELETE",
+          "scopes": ["delete"]
+        }
+      ]
+    }
+  ]
+}

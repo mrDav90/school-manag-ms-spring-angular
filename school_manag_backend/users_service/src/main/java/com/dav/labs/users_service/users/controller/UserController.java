@@ -38,6 +38,12 @@ public class UserController {
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 
+//    @GetMapping("/me")
+//    public ResponseEntity<UserDtoResponse> getMe(Authentication authentication){
+//        Optional<UserDtoResponse> user = userService.getUserById(id);
+//        return new ResponseEntity<>(user.get(), HttpStatus.OK);
+//    }
+
     @PostMapping("/message")
     public ResponseEntity<String> sendMessage(
             @RequestBody String message

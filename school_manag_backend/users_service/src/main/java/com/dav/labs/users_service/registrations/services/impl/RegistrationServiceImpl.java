@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +36,8 @@ public class RegistrationServiceImpl implements IRegistrationService {
     private final ClasseRestClient classeRestClient;
     private final IStudentService studentService ;
     private final Logger logger = LoggerFactory.getLogger(RegistrationServiceImpl.class);
+    private final KafkaTemplate<String, RegistrationDtoResponse> kafkaTemplate;
+
 
     @Override
     public Optional<RegistrationDtoResponse> saveRegistration(RegistrationDtoRequest registrationDtoRequest){
@@ -71,6 +75,8 @@ public class RegistrationServiceImpl implements IRegistrationService {
 
         RegistrationEntity registrationEntity = registrationRepository.save(r);
         RegistrationDtoResponse registrationDtoResponse = registrationMapper.toRegistrationDtoResponse(registrationEntity);
+        kafkaTemplate.send("school-management-topic", registrationDtoResponse.getId(), registrationDtoResponse);
+        System.out.println(kafkaTemplate.send("school-management-topic", registrationDtoResponse.getId(), registrationDtoResponse));
         return Optional.of(registrationDtoResponse);
     }
     @Override

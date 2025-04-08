@@ -1,0 +1,23 @@
+meta {
+  name: Update student
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:8088/api/v1/students/7d758083-30ae-427e-9cbf-bf444d230b8c
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "firstName": "Kangni David",
+    "lastName": "Gabiam",
+    "emailPro": "kgabiam@groupeisis.com",
+    "emailPerso": "davidgabiam720@gmail.com",
+    "phoneNumber": "+221777398313",
+    "address": "Dakar",
+    "registrationNu": "1234"
+  }
+}

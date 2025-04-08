@@ -1,0 +1,19 @@
+meta {
+  name: Update student
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:8088/api/v1/academic-year/a235ea69-9050-466e-b6df-2bc7313e093b
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "label": "2023-2024",
+    "startDate": "2023-09-10T08:00:00.626Z",
+    "endDate": "2024-07-25T21:00:00.626Z"
+  }
+}

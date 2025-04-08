@@ -11,6 +11,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,10 +27,6 @@ public class KcClientService implements IKcClientService {
     private String clientId;
     @Value("${keycloak.client-secret}")
     private String clientSecret;
-    @Value("${keycloak.username}")
-    private String username;
-    @Value("${keycloak.password}")
-    private String password;
 
     @PostConstruct
     public void initKeycloakAdmin() {
@@ -39,18 +36,26 @@ public class KcClientService implements IKcClientService {
                 .realm(realm)
                 .clientId(clientId)
                 .clientSecret(clientSecret)
-                .grantType(OAuth2Constants.PASSWORD)
-                .username(username)
-                .password(password)
+                .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .build();
     }
 
-    public CreateKcClientResponse createUser(String username, String email, String password) {
+    public CreateKcClientResponse createUser(
+            String firstName,
+            String lastName,
+            String username,
+            String email,
+            String password
+    ) {
         UserRepresentation user = new UserRepresentation();
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
         user.setUsername(username);
         user.setEmail(email);
-        user.setEnabled(true);
+        user.setRealmRoles(Arrays.asList("user"));
         user.setEmailVerified(true);
+        user.setEnabled(true);
         user.setRequiredActions(Collections.emptyList());
 
         Response response = keycloakAdmin.realm(realm).users().create(user);

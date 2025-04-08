@@ -3,6 +3,7 @@ package com.dav.labs.users_service.students.controller;
 import com.dav.labs.users_service.students.dto.requests.StudentDtoRequest;
 import com.dav.labs.users_service.students.dto.responses.StudentDtoResponse;
 import com.dav.labs.users_service.students.services.impl.StudentServiceImpl;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@SecurityRequirement(name="Keycloak")
 public class StudentController {
     private final StudentServiceImpl studentService;
 

@@ -40,6 +40,22 @@ spring:
       # value-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/school-manag-realm
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -55,5 +71,10 @@ logging:
   file:
     name: users_service/logs/logs.log
 
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: school-manag-client
+      client-secret: j6R3VCKbvVuGohFK5kOLPOmLnJhdtGAt
 server:
   port: 8081
