@@ -1,9 +1,20 @@
 import {
+  NzButtonComponent,
+  NzButtonModule
+} from "./chunk-6H3R7JX5.js";
+import "./chunk-4DJP4IJ2.js";
+import {
+  NzTransitionPatchDirective
+} from "./chunk-BCNKTN2Y.js";
+import {
+  NzWaveDirective
+} from "./chunk-Y7HGS6AT.js";
+import {
   NzI18nService
 } from "./chunk-E5KRWJTQ.js";
 import {
   overlayZIndexSetter
-} from "./chunk-DPPQYPKT.js";
+} from "./chunk-KJPG245B.js";
 import {
   BasePortalOutlet,
   CdkPortalOutlet,
@@ -17,7 +28,7 @@ import {
   ScrollDispatcher,
   TemplatePortal,
   ViewportRuler
-} from "./chunk-CGLDNICA.js";
+} from "./chunk-4ZGDMO5P.js";
 import {
   ESCAPE,
   FocusTrapFactory,
@@ -26,27 +37,19 @@ import {
   hasModifierKey,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
-} from "./chunk-F3HAA4JG.js";
+} from "./chunk-SOWNOC6X.js";
 import {
-  NzButtonComponent,
-  NzButtonModule
-} from "./chunk-VO6WA7YU.js";
-import "./chunk-ZMCWVHTT.js";
+  reqAnimFrame
+} from "./chunk-T3CASQV2.js";
+import {
+  Directionality
+} from "./chunk-HHB2J7OS.js";
 import {
   NzIconDirective,
   NzIconModule
-} from "./chunk-T3UZOHCY.js";
+} from "./chunk-KX2QCYZU.js";
 import "./chunk-2SJ2DHYL.js";
-import {
-  NzConfigService
-} from "./chunk-HPCTX3RK.js";
 import "./chunk-BQ76GOFF.js";
-import {
-  NzTransitionPatchDirective
-} from "./chunk-BCNKTN2Y.js";
-import {
-  NzWaveDirective
-} from "./chunk-Y7HGS6AT.js";
 import "./chunk-PSTX632D.js";
 import "./chunk-QJEG43GL.js";
 import {
@@ -57,15 +60,17 @@ import {
   trigger
 } from "./chunk-XLE7UIJK.js";
 import {
+  _getEventTarget,
+  _getShadowRoot,
+  normalizePassiveListenerOptions
+} from "./chunk-QQTHJWLI.js";
+import {
   NzOutletModule,
   NzStringTemplateOutletDirective
 } from "./chunk-PE463VTU.js";
 import {
-  reqAnimFrame
-} from "./chunk-ETWQ6G2G.js";
-import {
-  Directionality
-} from "./chunk-HHB2J7OS.js";
+  NzConfigService
+} from "./chunk-VOGZTPA5.js";
 import {
   coerceArray,
   coerceElement,
@@ -79,11 +84,6 @@ import {
   toDecimal,
   warn
 } from "./chunk-OWKXHI3D.js";
-import {
-  _getEventTarget,
-  _getShadowRoot,
-  normalizePassiveListenerOptions
-} from "./chunk-QQTHJWLI.js";
 import {
   DomSanitizer
 } from "./chunk-QOX7TZEI.js";

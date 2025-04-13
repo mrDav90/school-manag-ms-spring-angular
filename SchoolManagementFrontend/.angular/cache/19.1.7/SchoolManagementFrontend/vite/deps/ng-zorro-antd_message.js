@@ -4,30 +4,30 @@ import {
 import {
   ComponentPortal,
   Overlay
-} from "./chunk-CGLDNICA.js";
-import "./chunk-F3HAA4JG.js";
+} from "./chunk-4ZGDMO5P.js";
+import "./chunk-SOWNOC6X.js";
+import {
+  NzSingletonService
+} from "./chunk-T3CASQV2.js";
+import "./chunk-HHB2J7OS.js";
 import {
   NzIconDirective,
   NzIconModule
-} from "./chunk-T3UZOHCY.js";
+} from "./chunk-KX2QCYZU.js";
 import "./chunk-2SJ2DHYL.js";
-import {
-  NzConfigService
-} from "./chunk-HPCTX3RK.js";
 import "./chunk-BQ76GOFF.js";
 import "./chunk-XLE7UIJK.js";
+import "./chunk-QQTHJWLI.js";
 import {
   NzOutletModule,
   NzStringTemplateOutletDirective
 } from "./chunk-PE463VTU.js";
 import {
-  NzSingletonService
-} from "./chunk-ETWQ6G2G.js";
-import "./chunk-HHB2J7OS.js";
+  NzConfigService
+} from "./chunk-VOGZTPA5.js";
 import {
   toCssPixel
 } from "./chunk-OWKXHI3D.js";
-import "./chunk-QQTHJWLI.js";
 import "./chunk-QOX7TZEI.js";
 import "./chunk-VETWWS5V.js";
 import "./chunk-V4FOGLRS.js";

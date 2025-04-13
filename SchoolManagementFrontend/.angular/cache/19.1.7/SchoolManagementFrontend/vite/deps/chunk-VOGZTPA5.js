@@ -10,6 +10,7 @@ import {
   Subject,
   filter,
   inject,
+  makeEnvironmentProviders,
   map,
   setClassMetadata,
   ɵɵdefineInjectable
@@ -1137,6 +1138,12 @@ function generate(color, opts = {}) {
 
 // node_modules/ng-zorro-antd/fesm2022/ng-zorro-antd-core-config.mjs
 var NZ_CONFIG = new InjectionToken("nz-config");
+function provideNzConfig(config) {
+  return makeEnvironmentProviders([{
+    provide: NZ_CONFIG,
+    useValue: config
+  }]);
+}
 var dynamicStyleMark = `-ant-${Date.now()}-${Math.random()}`;
 function getStyle(globalPrefixCls, theme) {
   const variables = {};
@@ -1286,7 +1293,11 @@ function WithConfig() {
 
 export {
   isPresetColor,
+  NZ_CONFIG,
+  provideNzConfig,
+  getStyle,
+  registerTheme,
   NzConfigService,
   WithConfig
 };
-//# sourceMappingURL=chunk-HPCTX3RK.js.map
+//# sourceMappingURL=chunk-VOGZTPA5.js.map

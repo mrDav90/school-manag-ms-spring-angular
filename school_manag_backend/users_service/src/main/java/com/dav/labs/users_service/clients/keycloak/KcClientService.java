@@ -1,12 +1,15 @@
 package com.dav.labs.users_service.clients.keycloak;
 
+import com.dav.labs.users_service.users.entities.Role;
 import jakarta.annotation.PostConstruct;
 import jakarta.ws.rs.core.Response;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.ClientRepresentation;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -45,7 +48,8 @@ public class KcClientService implements IKcClientService {
             String lastName,
             String username,
             String email,
-            String password
+            String password,
+            Role role
     ) {
         UserRepresentation user = new UserRepresentation();
 
@@ -53,7 +57,6 @@ public class KcClientService implements IKcClientService {
         user.setLastName(lastName);
         user.setUsername(username);
         user.setEmail(email);
-        user.setRealmRoles(Arrays.asList("user"));
         user.setEmailVerified(true);
         user.setEnabled(true);
         user.setRequiredActions(Collections.emptyList());
@@ -71,10 +74,15 @@ public class KcClientService implements IKcClientService {
             credential.setValue(password);
             //user.setCredentials(Collections.singletonList(credential));
 
-            System.out.println(keycloakAdmin.realm(realm).users().get(userId));
+            //System.out.println(keycloakAdmin.realm(realm).users().get(userId));
+
             keycloakAdmin.realm(realm).users().get(userId).resetPassword(credential);
 
+            RoleRepresentation realmRole = keycloakAdmin.realm(realm).roles().get(role.getValue()).toRepresentation();
+            keycloakAdmin.realm(realm).users().get(userId).roles().realmLevel().add(List.of(realmRole));
+
             return new CreateKcClientResponse(true,"Created user successfully");
+
         } else {
             return new CreateKcClientResponse(false,"Error"+ response.getStatus());
         }
@@ -97,6 +105,11 @@ public class KcClientService implements IKcClientService {
         String userId = users.get(0).getId();
         usersResource.get(userId).remove();
         //keycloakAdmin.realm(realm).users().get(username).remove();
+    }
+
+
+    public List<RoleRepresentation> getRoles() {
+        return keycloakAdmin.realm(realm).clients().get(clientId).roles().list();
     }
 
 

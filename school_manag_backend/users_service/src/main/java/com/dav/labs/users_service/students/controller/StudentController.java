@@ -11,28 +11,21 @@ import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/students")
-//@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 @Getter
 @Setter
-@SecurityRequirement(name="Keycloak")
+//@SecurityRequirement(name="Keycloak")
 public class StudentController {
     private final StudentServiceImpl studentService;
 
     @GetMapping
-    public ResponseEntity<List<StudentDtoResponse>> getAllStudents() {
-        List<StudentDtoResponse> students = studentService.getAllStudents().get();
-        return new ResponseEntity<>(students, HttpStatus.OK);
-    }
-
-    @GetMapping("/paginate")
+    @PreAuthorize("hasRole('admin') or hasRole('student')")
     public ResponseEntity<Page<StudentDtoResponse>> getStudents(@RequestParam(defaultValue = "0") int pageNumber, @RequestParam(defaultValue = "10") int pageSize ) {
         Page<StudentDtoResponse> students = studentService.getStudents(pageNumber,pageSize);
         return new ResponseEntity<>(students, HttpStatus.OK);
@@ -56,6 +49,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<Boolean> deleteStudent(@PathVariable("id") String id){
         boolean result = studentService.deleteStudent(id);
         return new ResponseEntity<>(result, HttpStatus.OK);

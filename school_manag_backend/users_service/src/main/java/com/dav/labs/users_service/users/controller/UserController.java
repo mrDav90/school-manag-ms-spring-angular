@@ -2,6 +2,7 @@ package com.dav.labs.users_service.users.controller;
 
 
 import com.dav.labs.users_service.clients.kafka.producer.KafkaProducer;
+import com.dav.labs.users_service.clients.keycloak.IKcClientService;
 import com.dav.labs.users_service.users.dto.requests.UserDtoRequest;
 import com.dav.labs.users_service.users.dto.responses.UserDtoResponse;
 import com.dav.labs.users_service.users.services.IUserService;
@@ -9,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +26,18 @@ import java.util.Optional;
 public class UserController {
     private final IUserService userService;
     private final KafkaProducer kafkaProducer;
-
+    private final IKcClientService kcClientService;
 
     @GetMapping
     public ResponseEntity<List<UserDtoResponse>> getAllUsers() {
         List<UserDtoResponse> users = userService.getAllUsers().get();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<RoleRepresentation>> getRoles() {
+        List<RoleRepresentation> roles = kcClientService.getRoles();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

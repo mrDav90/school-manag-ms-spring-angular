@@ -16,16 +16,12 @@
       "enforcement-mode": "DISABLED"
     },
     {
-      "path": "/api/v1/students/*",
+      "path": "/api/v1/students",
       "enforcement-mode": "ENFORCING",
       "methods": [
         {
           "method": "GET",
           "scopes": ["read"]
-        },
-        {
-          "method": "POST",
-          "scopes": ["create"]
         },
         {
           "method": "PUT",
@@ -34,6 +30,10 @@
         {
           "method": "DELETE",
           "scopes": ["delete"]
+        },
+        {
+          "method": "POST",
+          "scopes": ["create"]
         }
       ]
     }

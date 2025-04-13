@@ -3,17 +3,11 @@ import {
   _CdkPrivateStyleLoader,
   _IdGenerator,
   hasModifierKey
-} from "./chunk-F3HAA4JG.js";
+} from "./chunk-SOWNOC6X.js";
 import {
   BidiModule,
   Directionality
 } from "./chunk-HHB2J7OS.js";
-import {
-  coerceArray,
-  coerceCssPixelValue,
-  coerceElement,
-  coerceNumberProperty
-} from "./chunk-OWKXHI3D.js";
 import {
   Platform,
   RtlScrollAxisType,
@@ -22,6 +16,12 @@ import {
   getRtlScrollAxisType,
   supportsScrollBehavior
 } from "./chunk-QQTHJWLI.js";
+import {
+  coerceArray,
+  coerceCssPixelValue,
+  coerceElement,
+  coerceNumberProperty
+} from "./chunk-OWKXHI3D.js";
 import {
   DOCUMENT,
   Location
@@ -5141,4 +5141,4 @@ export {
   CdkConnectedOverlay,
   OverlayModule
 };
-//# sourceMappingURL=chunk-CGLDNICA.js.map
+//# sourceMappingURL=chunk-4ZGDMO5P.js.map

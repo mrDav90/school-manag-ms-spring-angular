@@ -1,17 +1,17 @@
 import {
   NzIconDirective,
   NzIconModule
-} from "./chunk-T3UZOHCY.js";
+} from "./chunk-KX2QCYZU.js";
 import "./chunk-2SJ2DHYL.js";
-import {
-  NzConfigService,
-  WithConfig
-} from "./chunk-HPCTX3RK.js";
 import "./chunk-BQ76GOFF.js";
-import "./chunk-OWKXHI3D.js";
 import {
   PlatformModule
 } from "./chunk-QQTHJWLI.js";
+import {
+  NzConfigService,
+  WithConfig
+} from "./chunk-VOGZTPA5.js";
+import "./chunk-OWKXHI3D.js";
 import "./chunk-QOX7TZEI.js";
 import "./chunk-VETWWS5V.js";
 import "./chunk-V4FOGLRS.js";

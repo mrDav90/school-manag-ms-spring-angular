@@ -45,17 +45,17 @@ import {
   ZoomOutOutline
 } from "./chunk-2SJ2DHYL.js";
 import {
-  NzConfigService
-} from "./chunk-HPCTX3RK.js";
-import {
   _defineProperty
 } from "./chunk-BQ76GOFF.js";
 import {
-  warn
-} from "./chunk-OWKXHI3D.js";
-import {
   Platform
 } from "./chunk-QQTHJWLI.js";
+import {
+  NzConfigService
+} from "./chunk-VOGZTPA5.js";
+import {
+  warn
+} from "./chunk-OWKXHI3D.js";
 import {
   DomSanitizer
 } from "./chunk-QOX7TZEI.js";
@@ -1668,4 +1668,4 @@ export {
   provideNzIconsPatch,
   NzIconModule
 };
-//# sourceMappingURL=chunk-T3UZOHCY.js.map
+//# sourceMappingURL=chunk-KX2QCYZU.js.map

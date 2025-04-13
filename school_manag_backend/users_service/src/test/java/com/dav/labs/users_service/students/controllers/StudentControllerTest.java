@@ -50,25 +50,6 @@ class StudentControllerTest {
         studentDtoRequest.setRegistrationNu("1234");
     }
 
-    @Test
-    void testGetAllStudents_ReturnsOkResponse() {
-        when(studentService.getAllStudents()).thenReturn(Optional.of(studentDtoResponses));
-        ResponseEntity<List<StudentDtoResponse>> response = studentController.getAllStudents();
-        assertEquals(HttpStatus.OK , response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertEquals(2,response.getBody().size());
-        verify(studentService, times(1)).getAllStudents();
-    }
-
-    @Test
-    void testGetAllStudents_ReturnsEmptyList() {
-        when(studentService.getAllStudents()).thenReturn(Optional.of(List.of()));
-        ResponseEntity<List<StudentDtoResponse>> response = studentController.getAllStudents();
-        assertEquals(HttpStatus.OK , response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertTrue(response.getBody().isEmpty());
-        verify(studentService, times(1)).getAllStudents();
-    }
 
     @Test
     void testGetPaginatedStudents_ReturnsOkResponse() {

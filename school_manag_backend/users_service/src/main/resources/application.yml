@@ -55,6 +55,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/realms/school-manag-realm
+          jwk-set-uri: http://localhost:8080/realms/school-manag-realm/protocol/openid-connect/certs
 
 eureka:
   instance:

@@ -2,26 +2,26 @@ import {
   NzResizeObserver
 } from "./chunk-4NMSOO6T.js";
 import {
+  Directionality
+} from "./chunk-HHB2J7OS.js";
+import {
   NzIconDirective,
   NzIconModule
-} from "./chunk-T3UZOHCY.js";
+} from "./chunk-KX2QCYZU.js";
 import "./chunk-2SJ2DHYL.js";
-import {
-  NzConfigService,
-  WithConfig
-} from "./chunk-HPCTX3RK.js";
 import "./chunk-BQ76GOFF.js";
+import "./chunk-QQTHJWLI.js";
 import {
   NzOutletModule,
   NzStringTemplateOutletDirective
 } from "./chunk-PE463VTU.js";
 import {
-  Directionality
-} from "./chunk-HHB2J7OS.js";
+  NzConfigService,
+  WithConfig
+} from "./chunk-VOGZTPA5.js";
 import {
   PREFIX
 } from "./chunk-OWKXHI3D.js";
-import "./chunk-QQTHJWLI.js";
 import "./chunk-QOX7TZEI.js";
 import "./chunk-VETWWS5V.js";
 import {

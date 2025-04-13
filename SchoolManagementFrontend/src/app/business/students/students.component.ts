@@ -76,7 +76,7 @@ export class StudentsComponent implements OnInit {
 
   loadStudents() {
     this.tableLoading = true;
-    this.studentService.all<PaginatedResponse<StudentResponse>>(`api/v1/students/paginate?pageNumber=${this.pageNumber-1}&pageSize=${this.pageSize}`).subscribe({
+    this.studentService.all<PaginatedResponse<StudentResponse>>(`api/v1/students?pageNumber=${this.pageNumber-1}&pageSize=${this.pageSize}`).subscribe({
       next: (data) => {
         this.listStudents = data.content;
         this.totalElements = data.totalElements;

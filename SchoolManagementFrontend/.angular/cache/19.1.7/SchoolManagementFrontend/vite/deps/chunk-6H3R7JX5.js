@@ -2,15 +2,7 @@ import {
   NZ_SPACE_COMPACT_ITEM_TYPE,
   NZ_SPACE_COMPACT_SIZE,
   NzSpaceCompactItemDirective
-} from "./chunk-ZMCWVHTT.js";
-import {
-  NzIconDirective,
-  NzIconModule
-} from "./chunk-T3UZOHCY.js";
-import {
-  NzConfigService,
-  WithConfig
-} from "./chunk-HPCTX3RK.js";
+} from "./chunk-4DJP4IJ2.js";
 import {
   NzTransitionPatchModule
 } from "./chunk-BCNKTN2Y.js";
@@ -19,10 +11,18 @@ import {
 } from "./chunk-Y7HGS6AT.js";
 import {
   NzDestroyService
-} from "./chunk-ETWQ6G2G.js";
+} from "./chunk-T3CASQV2.js";
 import {
   Directionality
 } from "./chunk-HHB2J7OS.js";
+import {
+  NzIconDirective,
+  NzIconModule
+} from "./chunk-KX2QCYZU.js";
+import {
+  NzConfigService,
+  WithConfig
+} from "./chunk-VOGZTPA5.js";
 import {
   fromEventOutsideAngular
 } from "./chunk-OWKXHI3D.js";
@@ -483,4 +483,4 @@ export {
   NzButtonGroupComponent,
   NzButtonModule
 };
-//# sourceMappingURL=chunk-VO6WA7YU.js.map
+//# sourceMappingURL=chunk-6H3R7JX5.js.map
